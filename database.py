@@ -65,14 +65,14 @@ def input_data():
 
 
 #查询数据
-def search_data():
+def search_data(sit,sip):
     #连接customer data 数据库
     cd=pymysql.connect(host="127.0.0.1",port=3306,user="CIM",password="pingan1234",db="customerdata") #,charset="utf-8"
     #创建游标
     cursor=cd.cursor()
     #查询语句
-    sit='name'
-    sip='平安'
+    #sit='name'
+    #sip='平安'
     sql="SELECT * FROM EINS WHERE %s ='%s'" %(sit,sip)
     
     try:
@@ -103,7 +103,7 @@ def search_data():
 
             
 
-
+'''
 def main():
     #create_table()
     #input_data()
@@ -112,6 +112,6 @@ def main():
 if __name__=="__main__":
     main()
 
-
+'''
 
 
