@@ -18,8 +18,9 @@ class Application(ttk.Frame):
         self.searchitem()
         self.searchentry()
         self.createWidgets()
-        self.data()
+        self.show_data()
         self.item
+        self.sr=NONE  
         
 
     #使用combobox来加入搜索对象的下拉选项框
@@ -48,9 +49,23 @@ class Application(ttk.Frame):
         #return user_input
         
     #创建功能按钮（查询、添加），并实现其功能
-    def createWidgets(self):
+    def createWidgets(self):   
+        self.searchButton = ttk.Button(self, text='查询',command=self.search_data)  #主页 查询 接口调用
+        self.searchButton.grid() 
 
-        def search_data():
+        self.addButton=ttk.Button(self,text='添加',command=self.add_record)   #主页 添加 接口调用
+        self.addButton.grid()
+        '''
+        #使用label，在其上输出从数据库来的数据
+        self.data=ttk.Label(self,background='green')
+        self.data.text=self.sr
+        print(self.sr)
+        area.grid()
+        '''
+        
+    #实现数据库内的搜索功能，以及搜索结果的输出
+    def search_data(self):
+            sr=NONE
             #将输入框中产生的数据导出
             #选定的输入项目
             sitem=self.item.get()
@@ -64,24 +79,21 @@ class Application(ttk.Frame):
             user_input=self.search_entry.get()
             #调用数据库的搜索功能
             database.search_data(sitem,user_input)
-
-        self.searchButton = ttk.Button(self, text='查询',command=search_data)  #主页 查询 接口调用
-        self.searchButton.grid() 
-
-        self.addButton=ttk.Button(self,text='添加',command=self.add_record)   #主页 添加 接口调用
-        self.addButton.grid()
-
-
+            self.sr=database.search_data(sitem,user_input)
+            print (self.sr)
+    
     #调用弹窗，添加数据
     def add_record(self):
         ar=popup_withouthistory.MyDialog(self.master,title='添加')
-
+    
+    '''
     #使用label，在其上输出从数据库来的数据
-    def data(self):
+    def show_data(self):
         area=ttk.Label(self,background='green')
-        area.text=self.createWidgets()
+        area.text=self.sr
+        print(self.sr)
         area.grid()
-   
+    '''
        
 app = Application() 
 app.master.title('客户服务信息记录系统') 

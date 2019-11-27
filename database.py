@@ -91,17 +91,19 @@ def search_data(sit,sip):
             cost=row[5]
             note=row[6]
             #打印结果
-            print("carnumber=%s,name=%s,tel=%s,time=%s,item=%s,cost=%s,note=%s"% \
-                (carnumber,name,tel,time,item,cost,note))
+            results= "carnumber=%s,name=%s,tel=%s,time=%s,item=%s,cost=%s,note=%s"% \
+                (carnumber,name,tel,time,item,cost,note)
+            return results
         
     except:
-        print( "Error:unable to fetch data!")
+        results= "Error:unable to fetch data!"
+        return results
 
     #关闭数据库连接
     cursor.close()
     cd.close()
 
-            
+
 
 '''
 def main():
