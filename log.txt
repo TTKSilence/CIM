@@ -42,3 +42,4 @@
 2019.12.02
     1. 完成了popup里的数据导出功能：使用wait_window()，将弹窗中输入的数据在其销毁后导出至父窗口（即调用函数的窗口）；注，弹窗函数中不应出现wait_window()，否则会出现bad window报错；
     2. 下一步工作，将popup中传回的数据，通过调用database中的input_data()函数写入数据表中；
+    3. 在input_data()执行完之后，给出success/failure状态返回值；

@@ -20,7 +20,6 @@ class Application(ttk.Frame):
         self.createWidgets()
         self.item  
         
-
     #使用combobox来加入搜索对象的下拉选项框
     def searchitem(self):
         self.item=ttk.Combobox(self,values=('车牌号码','客户姓名','电话号码'),
@@ -28,23 +27,10 @@ class Application(ttk.Frame):
         self.item.current([0])
         self.item.grid(row=1,column=1)
 
-        
-        
-        
-        #print(sitem)
-        #return sitem
-        
-
-
-        #使用entry来添加用户输入框
+    #使用entry来添加用户输入框
     def searchentry(self):
         self.search_entry = tk.Entry(self, font=16)
         self.search_entry.grid(row=1, column=2)
-        
-        
-        
-        #print(user_input)
-        #return user_input
         
     #创建功能按钮（查询、添加），并实现其功能
     def createWidgets(self):   
@@ -71,7 +57,6 @@ class Application(ttk.Frame):
         #调用数据库的搜索功能
         database.search_data(sitem,user_input)
         sr=database.search_data(sitem,user_input)        
-
 
         #添加treeview模块，提供数据库查询结果的显示区域
         tree=ttk.Treeview(show="headings")  #将第一列空列删除
