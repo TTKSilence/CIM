@@ -33,7 +33,7 @@ class MyDialog(Toplevel):
         print( self.initial_focus)
         # 让对话框获取焦点
         self.initial_focus.focus_set()
-        self.wait_window(self)
+    
     # 通过该方法来创建自定义对话框的内容
     def init_widgets(self, master):
         # 创建并添加Label
@@ -51,6 +51,7 @@ class MyDialog(Toplevel):
         # 创建并添加Entry,用于接受用户输入的密码
         self.note_entry = Entry(master, font=16)
         self.note_entry.grid(row=3, column=1)
+
     # 通过该方法来创建对话框下方的按钮框
     def init_buttons(self):
         f = Frame(self)
@@ -63,10 +64,12 @@ class MyDialog(Toplevel):
         self.bind("<Return>", self.ok_click)
         self.bind("<Escape>", self.cancel_click)
         f.pack()
+
     # 该方法可对用户输入的数据进行校验
     def validate(self):
         # 可重写该方法
         return True
+
     # 该方法可处理用户输入的数据
     def process_input(self):
         user_item = self.item_entry.get()
@@ -77,6 +80,8 @@ class MyDialog(Toplevel):
         金额: %s
         备注: %s'''
             % (user_item , user_cost,user_note))
+        self.mess=[user_item,user_cost,user_note]
+
     def ok_click(self, event=None):
         print('确定')
         # 如果不能通过校验，让用户重新输入
@@ -91,6 +96,7 @@ class MyDialog(Toplevel):
         self.parent.focus_set()
         # 销毁自己
         self.destroy()
+
     def cancel_click(self, event=None):
         print('取消')
         # 将焦点返回给父窗口
@@ -99,7 +105,7 @@ class MyDialog(Toplevel):
         self.destroy()
 
 
-
+'''
 #测试工具代码
 class Application(ttk.Frame):
     def __init__(self, master=None):
@@ -124,3 +130,4 @@ class Application(ttk.Frame):
 app = Application() 
 app.master.title('客户服务信息记录系统') 
 app.mainloop()
+'''

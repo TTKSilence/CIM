@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 
 import pymysql
-#import cim_mainpage
 
 #创建数据库
 
@@ -39,7 +38,7 @@ def create_table():
 '''
 
 #输入数据
-def input_data():
+def input_data(mes):
     #连接customer data 数据库
     cd=pymysql.connect(host="127.0.0.1",port=3306,user="CIM",password="pingan1234",db="customerdata") #,charset="utf-8"
     #创建游标
@@ -47,7 +46,7 @@ def input_data():
     #sql="INSERT INTO eins(carnumber,name,tel,time,item,cost,note) VALUES ('%s','%s','%s',NOW(),'%s','%s','%s')" 
     #data=('皖ADH985','平安','12345678901','日常保养','300','无')
 
-    sql="INSERT INTO eins(carnumber,name,tel,time,item,cost,note) VALUES('皖ADH985','平安','12345678901',NOW(),'日常保养','300','无')"
+    sql="INSERT INTO eins(carnumber,name,tel,time,item,cost,note) VALUES(mes[0],mes[1],mes[2],NOW(),mes[3],mes[4],mes[5])"
     
     print('halfway')
     try:
@@ -55,9 +54,11 @@ def input_data():
         print('almost')
         cd.commit()
         print('success')
+        return 'success'
     except:
         cd.rollback()
         print('failure')
+        return 'failure'
     #关闭连接
     cursor.close()
     cd.close()
@@ -80,20 +81,10 @@ def search_data(sit,sip):
         cursor.execute(sql)
         #获取所有符合条件的搜索记录
         results=cursor.fetchall()
-        #return results
         
-        for row in results:
-            carnumber=row[0]
-            name=row[1]
-            tel=row[2]
-            time=row[3]
-            item=row[4]
-            cost=row[5]
-            note=row[6]
-            #打印结果
-            results= "carnumber=%s,name=%s,tel=%s,time=%s,item=%s,cost=%s,note=%s"% \
-                (carnumber,name,tel,time,item,cost,note)
-            return results
+        #print(results)
+        #print(len(results))
+        return results
         
     except:
         results= "Error:unable to fetch data!"
@@ -109,7 +100,7 @@ def search_data(sit,sip):
 def main():
     #create_table()
     #input_data()
-    search_data()
+    search_data('name','平安')
 
 if __name__=="__main__":
     main()

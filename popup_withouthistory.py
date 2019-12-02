@@ -6,6 +6,7 @@ from tkinter import ttk
 from tkinter import messagebox
 
 class MyDialog(Toplevel):
+    
     # 定义构造方法
     def __init__(self, parent, title = None, modal=True):
         Toplevel.__init__(self, parent)
@@ -33,7 +34,7 @@ class MyDialog(Toplevel):
         print( self.initial_focus)
         # 让对话框获取焦点
         self.initial_focus.focus_set()
-        self.wait_window(self)
+ 
     # 通过该方法来创建自定义对话框的内容
     def init_widgets(self, master):
         # 创建并添加Label
@@ -79,10 +80,12 @@ class MyDialog(Toplevel):
         self.bind("<Return>", self.ok_click)
         self.bind("<Escape>", self.cancel_click)
         f.pack()
+
     # 该方法可对用户输入的数据进行校验
     def validate(self):
-        # 可重写该方法
+        # to-do
         return True
+
     # 该方法可处理用户输入的数据
     def process_input(self):
         user_number=self.number_entry.get()
@@ -99,6 +102,8 @@ class MyDialog(Toplevel):
         金       额: %s
         备       注: %s'''
             % (user_number,user_name,user_phone,user_item,user_cost,user_note))
+        self.mess=[user_number,user_name,user_phone,user_item,user_cost,user_note]
+
     def ok_click(self, event=None):
         print('确定')
         # 如果不能通过校验，让用户重新输入
@@ -108,11 +113,12 @@ class MyDialog(Toplevel):
         self.withdraw()
         self.update_idletasks()
         # 获取用户输入数据
-        self.process_input()
+        self.process_input()        
         # 将焦点返回给父窗口
         self.parent.focus_set()
         # 销毁自己
         self.destroy()
+  
     def cancel_click(self, event=None):
         print('取消')
         # 将焦点返回给父窗口
@@ -141,7 +147,7 @@ class Application(ttk.Frame):
         self.addButton.grid()
     
     def add_record(self):
-        ar=MyDialog(self.master,title='添加')   
+        ar=MyDialog(self.master,title='添加') 
 
 app = Application() 
 app.master.title('客户服务信息记录系统') 
