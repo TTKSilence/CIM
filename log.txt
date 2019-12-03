@@ -43,3 +43,7 @@
     1. 完成了popup里的数据导出功能：使用wait_window()，将弹窗中输入的数据在其销毁后导出至父窗口（即调用函数的窗口）；注，弹窗函数中不应出现wait_window()，否则会出现bad window报错；
     2. 下一步工作，将popup中传回的数据，通过调用database中的input_data()函数写入数据表中；
     3. 在input_data()执行完之后，给出success/failure状态返回值；
+
+2019.12.03
+    1. 成功实现在主窗口中的add_record()中，将popup中传回的输入数据插入到数据库中的数据表中，并针对数据库执行的结果，给出相应的弹窗提示；（已测试成功）
+    2. 下一步工作：思考将popup_withhistory.py完全融入到主窗口中； 然后考虑GUI的用户操作布局合理性；

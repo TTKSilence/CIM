@@ -94,9 +94,11 @@ class Application(ttk.Frame):
     def add_record(self):
         ar=popup_withouthistory.MyDialog(self.master,title='添加')
         self.wait_window(ar)  #等待窗口，等待popup中的窗口销毁之后把所输入的值传回来
-        print(ar.mess)
-        print(ar.mess)
-        return ar.mess
+        #在数据表中插入从popup窗口中输入的数据,并且根据数据库操作的结果提示用户数据插入操作是否成功
+        if database.input_data(ar.mess):  
+            success=messagebox.showinfo('提示','数据以成功保存！')
+        else:
+            failure=messagebox.showinfo('提示','数据保存失败！，请尝试重新添加。')
         
     
        

@@ -40,30 +40,24 @@ def create_table():
 #输入数据
 def input_data(mes):
     #连接customer data 数据库
-    cd=pymysql.connect(host="127.0.0.1",port=3306,user="CIM",password="pingan1234",db="customerdata") #,charset="utf-8"
+    cd=pymysql.connect(host="127.0.0.1",port=3306,user="CIM",password="pingan1234",db="customerdata") 
     #创建游标
     cursor=cd.cursor()
-    #sql="INSERT INTO eins(carnumber,name,tel,time,item,cost,note) VALUES ('%s','%s','%s',NOW(),'%s','%s','%s')" 
-    #data=('皖ADH985','平安','12345678901','日常保养','300','无')
-
-    sql="INSERT INTO eins(carnumber,name,tel,time,item,cost,note) VALUES(mes[0],mes[1],mes[2],NOW(),mes[3],mes[4],mes[5])"
-    
+    sql="INSERT INTO eins(carnumber,name,tel,time,item,cost,note) VALUES ('%s','%s','%s',NOW(),'%s','%s','%s')" % (mes[0],mes[1],mes[2],mes[3],mes[4],mes[5])    
     print('halfway')
     try:
-        cursor.execute(sql)
+        cursor.execute(sql) #执行所写的SQL语句
         print('almost')
-        cd.commit()
+        cd.commit()   #提交SQL语句，获得结果
         print('success')
-        return 'success'
+        return 1
     except:
-        cd.rollback()
+        cd.rollback()  #若发生错误，则回滚到此次操作之前的状态
         print('failure')
-        return 'failure'
+        return 0
     #关闭连接
     cursor.close()
     cd.close()
-
-
 
 #查询数据
 def search_data(sit,sip):
@@ -94,17 +88,15 @@ def search_data(sit,sip):
     cursor.close()
     cd.close()
 
-
-
 '''
 def main():
     #create_table()
-    #input_data()
-    search_data('name','平安')
+    input_data(mes)
+    #search_data('name','平安')
 
 if __name__=="__main__":
     main()
-
 '''
+
 
 
