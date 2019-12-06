@@ -34,7 +34,7 @@ class MyDialog(Toplevel):
         print( self.initial_focus)
         # 让对话框获取焦点
         self.initial_focus.focus_set()
- 
+        
     # 通过该方法来创建自定义对话框的内容
     def init_widgets(self, master):
         # 创建并添加Label
@@ -67,7 +67,7 @@ class MyDialog(Toplevel):
         # 创建并添加Entry,用于接受用户输入的密码
         self.note_entry = Entry(master, font=16)
         self.note_entry.grid(row=6, column=1)
-        
+  
     # 通过该方法来创建对话框下方的按钮框
     def init_buttons(self):
         f = Frame(self)
@@ -81,12 +81,7 @@ class MyDialog(Toplevel):
         self.bind("<Escape>", self.cancel_click)
         f.pack()
 
-    # 该方法可对用户输入的数据进行校验
-    def validate(self):
-        # to-do
-        return True
-
-    # 该方法可处理用户输入的数据
+    # 获取用户输入数据，该方法可处理用户输入的数据
     def process_input(self):
         user_number=self.number_entry.get()
         user_name=self.name_entry.get()
@@ -94,39 +89,62 @@ class MyDialog(Toplevel):
         user_item = self.item_entry.get()
         user_cost = self.cost_entry.get()
         user_note = self.note_entry.get()
-        messagebox.showinfo(message='''
+        self.mess=[user_number,user_name,user_phone,user_item,user_cost,user_note]
+    
+    #创建确认输入窗口
+    def messagepopup(self):
+        ans=messagebox.askyesno(message='''
         车牌号码：%s
         客户姓名：%s
         电话号码：%s
         项       目: %s
         金       额: %s
         备       注: %s'''
-            % (user_number,user_name,user_phone,user_item,user_cost,user_note))
-        self.mess=[user_number,user_name,user_phone,user_item,user_cost,user_note]
-
+            % (self.mess[0],self.mess[1],self.mess[2],self.mess[3],self.mess[4],self.mess[5]))
+        if ans:
+            return 1
+        else:
+            return 0
+              
+    # 该方法可对用户输入的数据进行校验,若存在未填写完整的项目，则返回继续补充；填写完成后，才可以提交给主窗口/数据库
+    def validate(self):
+        self.process_input()
+        a=1
+        for i in range(5):  #备注栏可以不填，所以取5
+            if self.mess[i]=='':
+                a=0
+                break
+            else:
+                continue
+        return a       
+          
     def ok_click(self, event=None):
+        self.ju=1
         print('确定')
         # 如果不能通过校验，让用户重新输入
         if not self.validate():
             self.initial_focus.focus_set()
+            messagebox.showinfo('提示','各栏信息（除备注栏外）不能为空，请继续填写完整！')
             return
-        self.withdraw()
-        self.update_idletasks()
-        # 获取用户输入数据
-        self.process_input()        
-        # 将焦点返回给父窗口
-        self.parent.focus_set()
-        # 销毁自己
-        self.destroy()
-  
+        #若message的输入确认框选择了确认，才会提交；若选择取消，则返回
+        if self.messagepopup():
+            self.withdraw()
+            self.update_idletasks()    
+            # 将焦点返回给父窗口
+            self.parent.focus_set()
+            # 销毁自己
+            self.destroy()
+        else:
+            return
+         
     def cancel_click(self, event=None):
-        print('取消')
+        self.ju=0
+        print('取消')        
         # 将焦点返回给父窗口
         self.parent.focus_set()
         # 销毁自己
         self.destroy()
-
-
+        
 '''
 #测试工具代码
 class Application(ttk.Frame):

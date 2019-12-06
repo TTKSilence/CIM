@@ -75,9 +75,6 @@ def search_data(sit,sip):
         cursor.execute(sql)
         #获取所有符合条件的搜索记录
         results=cursor.fetchall()
-        
-        #print(results)
-        #print(len(results))
         return results
         
     except:

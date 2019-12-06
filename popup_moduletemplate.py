@@ -36,15 +36,15 @@ class MyDialog(Toplevel):
     # 通过该方法来创建自定义对话框的内容
     def init_widgets(self, master):
         # 创建并添加Label
-        Label(master, text='用户名', font=12,width=10).grid(row=1, column=0)
+        Label(master, text='用户名', font=12,width=10).pack(row=1, column=0)
         # 创建并添加Entry,用于接受用户输入的用户名
         self.name_entry = Entry(master, font=16)
-        self.name_entry.grid(row=1, column=1)
+        self.name_entry.pack(row=1, column=1)
         # 创建并添加Label
-        Label(master, text='密  码', font=12,width=10).grid(row=2, column=0)
+        Label(master, text='密  码', font=12,width=10).pack(row=2, column=0)
         # 创建并添加Entry,用于接受用户输入的密码
         self.pass_entry = Entry(master, font=16)
-        self.pass_entry.grid(row=2, column=1)
+        self.pass_entry.pack(row=2, column=1)
     # 通过该方法来创建对话框下方的按钮框
     def init_buttons(self):
         f = Frame(self)
