@@ -149,19 +149,21 @@ class Application(ttk.Frame):
         #在数据表中插入从popup窗口中输入的数据,并且根据数据库操作的结果提示用户数据插入操作是否成功
        
         #若弹窗中给出确定添加的命令，则在数据库中执行添加操作，否则不执行
-        if ar.ju==1:
+        if ar.ju==1:   #在添加窗口点击添加
             if database.input_data(ar.mess):  
                 success=messagebox.showinfo('提示','数据以成功保存！')
             else:
                 failure=messagebox.showinfo('提示','数据保存失败！，请重新尝试。')
-        #添加完毕后刷新列表
-        if self.sitem=='carnumber':
-            self.user_input=ar.mess[0]
-        elif self.sitem=='name':
-            self.user_input=ar.mess[1]
-        elif self.sitem=='tel':
-            self.user_input=ar.mess[2]
-        self.search_data()
+            #添加完毕后刷新列表
+            if self.sitem=='carnumber':
+                self.user_input=ar.mess[0]
+            elif self.sitem=='name':
+                self.user_input=ar.mess[1]
+            elif self.sitem=='tel':
+                self.user_input=ar.mess[2]
+            self.search_data()
+        else:   #在添加窗口点击取消
+            self.sr=0  #返回到主页面，并在下次点击添加时，弹窗新用户添加窗口
 
     #对于有历史数据的用户，添加数据的实现      
     def add_record(self):
@@ -169,20 +171,22 @@ class Application(ttk.Frame):
         self.wait_window(ar)  #等待窗口，等待popup中的窗口销毁之后把所输入的值传回来
         #在数据表中插入从popup窗口中输入的数据,并且根据数据库操作的结果提示用户数据插入操作是否成功
         #若弹窗中给出确定添加的命令，则在数据库中执行添加操作，否则不执行
-        if ar.ju==1:
+        if ar.ju==1:  #在添加窗口点击添加
             if database.input_data(ar.mess):  
                 success=messagebox.showinfo('提示','数据以成功保存！')
             else:
                 failure=messagebox.showinfo('提示','数据保存失败！，请重新尝试。')
-        #添加完毕后刷新列表
-        if self.sitem=='carnumber':
-            self.user_input=ar.mess[0]
-        elif self.sitem=='name':
-            self.user_input=ar.mess[1]
-        elif self.sitem=='tel':
-            self.user_input=ar.mess[2]
-        self.search_data()
-        
+            #添加完毕后刷新列表
+            if self.sitem=='carnumber':
+                self.user_input=ar.mess[0]
+            elif self.sitem=='name':
+                self.user_input=ar.mess[1]
+            elif self.sitem=='tel':
+                self.user_input=ar.mess[2]
+            self.search_data()
+        else:   #在添加窗口点击取消
+            self.sr=0  #返回到主页面，并在下次点击添加时，弹窗新用户添加窗口
+              
 #实例app的运行                           
 app = Application() 
 app.master.title('客户服务信息记录系统') 
