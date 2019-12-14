@@ -23,7 +23,9 @@ class Application(ttk.Frame):
         self.sitem=0       
         self.user_input=None    
         self.createWidgets()
-        self.addButton        
+        self.addButton
+        self.search_count=0 #计数
+        self.input_count=0
                 
     #添加搜索对象的下拉选项框（Combobox）和输入框（Entry）
     def searchitem(self):
@@ -109,6 +111,15 @@ class Application(ttk.Frame):
         #调用数据库的搜索功能
         print(self.sitem)
         print(self.user_input)
+
+        #判断是否是第一次使用，若是，则新建数据表
+        if self.search_count==0:
+            database.create_table()
+            self.search_count+=1
+        else:
+            self.search_count+=1
+        print(self.search_count)
+
         database.search_data(self.sitem,self.user_input)
         sr=database.search_data(self.sitem,self.user_input)
 
@@ -141,6 +152,14 @@ class Application(ttk.Frame):
         else:  #有历史记录
             self.add_record()
         self.sr=0 #重置判决值
+
+        #判断是否是第一次使用，若是，则新建数据表
+        if self.input_count==0:
+            database.create_table()
+            self.input_count+1
+        else:
+            self.input_count+1
+        print(self.input_count)
       
     #对无历史数据的新用户，添加数据的实现
     def add_record_new(self):
